@@ -10,7 +10,10 @@
 
         var vm = this;
 
-        productResource.query(function(data) {
+        // Hardcode query parameter for now.
+        vm.searchCriteria = 'GDN';
+
+        productResource.query({ search: vm.searchCriteria }, function(data) {
             vm.products = data;
         });
 

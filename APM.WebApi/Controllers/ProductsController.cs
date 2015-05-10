@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.OData;
 using APM.WebApi.Models;
 
 namespace APM.WebApi.Controllers
@@ -9,10 +11,18 @@ namespace APM.WebApi.Controllers
     public class ProductsController : ApiController
     {
         // GET: api/Products
-        public IEnumerable<Product> Get()
+        [EnableQuery]
+        public IQueryable<Product> Get()
         {
             var productRepository = new ProductRepository();
-            return productRepository.Retrieve();
+            return productRepository.Retrieve().AsQueryable();
+        }
+
+        public IEnumerable<Product> Get(string search)
+        {
+            var productRepository = new ProductRepository();
+            var products = productRepository.Retrieve();
+            return products.Where(x => x.ProductCode.Contains(search));
         }
 
         // GET: api/Products/5
