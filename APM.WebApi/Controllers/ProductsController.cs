@@ -79,6 +79,11 @@ namespace APM.WebApi.Controllers
                     return BadRequest("Product cannot be null.");
                 }
 
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
                 var productRepository = new ProductRepository();
                 var newProduct = productRepository.Save(product);
 
@@ -105,6 +110,11 @@ namespace APM.WebApi.Controllers
                 if (product == null)
                 {
                     return BadRequest("Product cannot be null.");
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
                 }
 
                 var productRepository = new ProductRepository();
