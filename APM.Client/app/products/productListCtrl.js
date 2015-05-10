@@ -13,7 +13,7 @@
         // Hardcode query parameter for now.
         vm.searchCriteria = 'GDN';
 
-        productResource.query({ search: vm.searchCriteria }, function(data) {
+        productResource.query({ $kip: 1, $top: 3 }, function(data) {
             vm.products = data;
         });
 

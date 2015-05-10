@@ -18,27 +18,47 @@ namespace APM.WebApi.Controllers
             return productRepository.Retrieve().AsQueryable();
         }
 
-        public IEnumerable<Product> Get(string search)
-        {
-            var productRepository = new ProductRepository();
-            var products = productRepository.Retrieve();
-            return products.Where(x => x.ProductCode.Contains(search));
-        }
+        /// OData renders this method unnecessary.        
+        //public IEnumerable<Product> Get(string search)
+        //{
+        //    var productRepository = new ProductRepository();
+        //    var products = productRepository.Retrieve();
+        //    return products.Where(x => x.ProductCode.Contains(search));
+        //}
 
         // GET: api/Products/5
-        public string Get(int id)
+        public Product Get(int id)
         {
-            return "value";
+            Product product;
+            var productRepository = new ProductRepository();
+
+            if (id > 0)
+            {
+                var products = productRepository.Retrieve();
+                product = products.FirstOrDefault(x => x.ProductId == id);
+            }
+            else
+            {
+                product = productRepository.Create();
+            }
+
+            return product;
         }
 
         // POST: api/Products
-        public void Post([FromBody]string value)
+        public Product Post([FromBody]Product product)
         {
+            var productRepository = new ProductRepository();
+            var newProduct = productRepository.Save(product);
+            return newProduct;
         }
 
         // PUT: api/Products/5
-        public void Put(int id, [FromBody]string value)
+        public Product Put(int id, [FromBody]Product product)
         {
+            var productRepository = new ProductRepository();
+            var updatedProduct = productRepository.Save(id, product);
+            return updatedProduct;
         }
 
         // DELETE: api/Products/5
