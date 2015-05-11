@@ -6,7 +6,7 @@ using System.Security.Cryptography;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
-using System.Web.Http.ModelBinding;
+using System.Web.Http.Cors;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
@@ -21,6 +21,7 @@ namespace APM.WebApi.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
+    [EnableCors("http://localhost:63904", "*", "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
