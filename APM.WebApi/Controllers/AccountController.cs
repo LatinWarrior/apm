@@ -21,7 +21,7 @@ namespace APM.WebApi.Controllers
 {
     [Authorize]
     [RoutePrefix("api/Account")]
-    [EnableCors("http://localhost:63904", "*", "*")]
+    //[EnableCors("http://localhost:63904", "*", "*")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
